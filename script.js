@@ -70,10 +70,11 @@ setInterval(updateLiveCounts, 5 * 60 * 1000);
 const radioAudio = document.querySelector('#radio-audio');
 if (radioAudio) {
   const radioTracks = [
-     { src: 'media/radio/bduussu_10.mp3', title: 'Bduussu' },
-     { src: 'media/radio/biggis%20Sturg_6.mp3', title: 'Biggis Sturg' },
-     { src: 'media/radio/diggy%20jugger_17.mp3', title: 'Diggy Jugger' },
-     { src: 'media/radio/mandrill.mp3', title: 'Mandrill' }
+     { src: 'media/radio/biggis%20Sturg_6.mp3', title: 'Int' },
+     { src: 'media/radio/bduussu_10.mp3', title: 'Spur' },
+     { src: 'media/radio/diggy%20jugger_17.mp3', title: 'Under' },
+     { src: 'media/radio/mandrill.mp3', title: 'Mandrill' },
+     { src: 'media/radio/sandclouds.mp3', title: 'Sandclouds' }
   ];
   const toggleButton = document.querySelector('#radio-toggle');
   const radioStatus = document.querySelector('.radio-label');
