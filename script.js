@@ -7,7 +7,8 @@ function updateClock(){
 }
 updateClock();
 setInterval(updateClock,60000);
-const savedTheme = localStorage.getItem('mp-theme');
+let savedTheme;
+try { savedTheme = localStorage.getItem('mp-theme'); } catch {}
 if(savedTheme === 'light') document.body.classList.add('light-mode');
 function syncThemeButton(){
   const light = document.body.classList.contains('light-mode');
@@ -17,7 +18,7 @@ function syncThemeButton(){
 syncThemeButton();
 themeButton.addEventListener('click',()=>{
   document.body.classList.toggle('light-mode');
-  localStorage.setItem('mp-theme',document.body.classList.contains('light-mode')?'light':'crt');
+  try { localStorage.setItem('mp-theme',document.body.classList.contains('light-mode')?'light':'crt'); } catch {}
   syncThemeButton();
 });
 
@@ -69,15 +70,19 @@ setInterval(updateLiveCounts, 5 * 60 * 1000);
 const radioAudio = document.querySelector('#radio-audio');
 if (radioAudio) {
   const radioTracks = [
-     { src: 'media/radio/bduussu_10.mp3' },
-     { src: 'media/radio/biggis%20Sturg_6.mp3' },
-     { src: 'media/radio/diggy%20jugger_17.mp3' },
-     { src: 'media/radio/mandrill.mp3' }
+     { src: 'media/radio/bduussu_10.mp3', title: 'Bduussu' },
+     { src: 'media/radio/biggis%20Sturg_6.mp3', title: 'Biggis Sturg' },
+     { src: 'media/radio/diggy%20jugger_17.mp3', title: 'Diggy Jugger' },
+     { src: 'media/radio/mandrill.mp3', title: 'Mandrill' }
   ];
   const toggleButton = document.querySelector('#radio-toggle');
   const radioStatus = document.querySelector('.radio-label');
   radioStatus.setAttribute('role', 'status');
   let currentTrack = 0;
+  let playbackRequest = 0;
+  function showTrack(loading = false) {
+    radioStatus.textContent = `${loading ? 'Loading' : 'RADIO'} / ${radioTracks[currentTrack].title}`;
+  }
   function showPlaybackError(error) {
     if (error?.name === 'AbortError') return;
     radioStatus.textContent = 'Unable to play. Try another track.';
@@ -89,22 +94,38 @@ if (radioAudio) {
     toggleButton.setAttribute('aria-label', playing ? 'Pause' : 'Play');
     toggleButton.setAttribute('aria-pressed', String(playing));
   }
+  function playRadio() {
+    const request = ++playbackRequest;
+    showTrack(true);
+    radioAudio.play().catch((error) => {
+      if (request === playbackRequest) showPlaybackError(error);
+    });
+  }
   function selectRadioTrack(index, autoplay = false) {
+    ++playbackRequest;
+    radioAudio.pause();
     currentTrack = (index + radioTracks.length) % radioTracks.length;
-    radioStatus.textContent = 'RADIO';
+    showTrack(autoplay);
     radioAudio.src = radioTracks[currentTrack].src;
+    radioAudio.load();
     syncRadioButton();
-    if (autoplay) radioAudio.play().catch(showPlaybackError);
+    if (autoplay) playRadio();
   }
   toggleButton.addEventListener('click', () => {
-    if (radioAudio.paused) radioAudio.play().catch(showPlaybackError);
-    else radioAudio.pause();
+    if (radioAudio.paused) playRadio();
+    else {
+      ++playbackRequest;
+      radioAudio.pause();
+      showTrack();
+    }
   });
   document.querySelector('#radio-prev').addEventListener('click', () => selectRadioTrack(currentTrack - 1, true));
   document.querySelector('#radio-next').addEventListener('click', () => selectRadioTrack(currentTrack + 1, true));
   radioAudio.addEventListener('play', syncRadioButton);
-  radioAudio.addEventListener('playing', () => { radioStatus.textContent = 'RADIO'; });
+  radioAudio.addEventListener('playing', () => { showTrack(); });
   radioAudio.addEventListener('error', showPlaybackError);
   radioAudio.addEventListener('pause', syncRadioButton);
   radioAudio.addEventListener('ended', () => selectRadioTrack(currentTrack + 1, true));
+  showTrack();
+  syncRadioButton();
 }
