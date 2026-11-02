@@ -15,6 +15,8 @@ If you publish from a repository with another name, the address will be `https:/
 
 The `media/` folder contains the Brainchip Arena and Windbound gameplay clips, the Vs. Imposter artwork, the Multi-FX pedal video and poster, and four user-made texture images used for subtle visual accents. Keep the whole folder when uploading the site.
 
+The gameplay and pedal videos play automatically while muted and loop inline. Native controls remain available for pausing or enabling sound. Browsers may restrict autoplay; in that case, use the video controls.
+
 ## Live counts
 
 The page requests Brainchip Arena's current player count and approximate online-presence counts for the Brainchip, Windbound, and Vs. Imposter Discord servers. Counts refresh every five minutes. If a public endpoint is unavailable, the page displays “Count unavailable.” These live counts require the site to be served over HTTPS; they may not load when opening the HTML file directly.
@@ -25,4 +27,4 @@ Check that the linked Roblox pages and Discord invites are the ones you want pub
 
 ## Portfolio radio
 
-The Audio Lab includes a selectable player for four Brainchip Album 2 tracks. Intermission is selected by default. Audio is loaded only when a track is chosen or played; the supplied WAV masters are included in `media/radio/`.
+The Audio Lab includes a selectable player for the four uploaded MP3 tracks in `media/radio/`. Bduussu is selected by default. Audio loads when the play button is pressed or another track is chosen. Playlist paths match the uploaded filenames, including URL-encoded spaces. If a track cannot play, the radio displays an error and the next/previous buttons remain available.
