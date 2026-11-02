@@ -69,13 +69,20 @@ setInterval(updateLiveCounts, 5 * 60 * 1000);
 const radioAudio = document.querySelector('#radio-audio');
 if (radioAudio) {
   const radioTracks = [
-     { src: 'media/radio/intermission.wav' },
-     { src: 'media/radio/bduussu.wav' },
-     { src: 'media/radio/diggy-jugger.wav' },
-     { src: 'media/radio/mandrill.wav' }
+     { src: 'media/radio/bduussu_10.mp3' },
+     { src: 'media/radio/biggis%20Sturg_6.mp3' },
+     { src: 'media/radio/diggy%20jugger_17.mp3' },
+     { src: 'media/radio/mandrill.mp3' }
   ];
   const toggleButton = document.querySelector('#radio-toggle');
+  const radioStatus = document.querySelector('.radio-label');
+  radioStatus.setAttribute('role', 'status');
   let currentTrack = 0;
+  function showPlaybackError(error) {
+    if (error?.name === 'AbortError') return;
+    radioStatus.textContent = 'Unable to play. Try another track.';
+    syncRadioButton();
+  }
   function syncRadioButton() {
     const playing = !radioAudio.paused;
     toggleButton.textContent = playing ? 'Ⅱ' : '▶';
@@ -84,17 +91,20 @@ if (radioAudio) {
   }
   function selectRadioTrack(index, autoplay = false) {
     currentTrack = (index + radioTracks.length) % radioTracks.length;
+    radioStatus.textContent = 'RADIO';
     radioAudio.src = radioTracks[currentTrack].src;
     syncRadioButton();
-    if (autoplay) radioAudio.play().catch(() => {});
+    if (autoplay) radioAudio.play().catch(showPlaybackError);
   }
   toggleButton.addEventListener('click', () => {
-    if (radioAudio.paused) radioAudio.play().catch(() => {});
+    if (radioAudio.paused) radioAudio.play().catch(showPlaybackError);
     else radioAudio.pause();
   });
   document.querySelector('#radio-prev').addEventListener('click', () => selectRadioTrack(currentTrack - 1, true));
   document.querySelector('#radio-next').addEventListener('click', () => selectRadioTrack(currentTrack + 1, true));
   radioAudio.addEventListener('play', syncRadioButton);
+  radioAudio.addEventListener('playing', () => { radioStatus.textContent = 'RADIO'; });
+  radioAudio.addEventListener('error', showPlaybackError);
   radioAudio.addEventListener('pause', syncRadioButton);
   radioAudio.addEventListener('ended', () => selectRadioTrack(currentTrack + 1, true));
 }
