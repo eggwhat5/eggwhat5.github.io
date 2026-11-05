@@ -1,3 +1,42 @@
+// Decode and play previews only while they can be seen. Keep native controls usable.
+const previewVideos = document.querySelectorAll('video[data-preview]');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const previewStates = new Map();
+const automaticPauses = new WeakSet();
+function syncPreview(video) {
+  const state = previewStates.get(video);
+  if (document.hidden || !state.visible || reducedMotion.matches) {
+    if (!video.paused) {
+      automaticPauses.add(video);
+      video.pause();
+    }
+  } else if (!state.userPaused && video.muted) {
+    // Safari may refuse automatic playback in Low Power Mode; controls still work.
+    video.play().catch(() => {});
+  }
+}
+if ('IntersectionObserver' in window) {
+  const previewObserver = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      previewStates.get(entry.target).visible = entry.isIntersecting && entry.intersectionRatio >= 0.25;
+      syncPreview(entry.target);
+    }
+  }, { threshold: [0, 0.25] });
+  previewVideos.forEach((video) => {
+    previewStates.set(video, { visible: false, userPaused: false });
+    video.addEventListener('pause', () => {
+      if (automaticPauses.has(video)) automaticPauses.delete(video);
+      else if (!video.ended) previewStates.get(video).userPaused = true;
+    });
+    video.addEventListener('play', () => {
+      previewStates.get(video).userPaused = false;
+    });
+    previewObserver.observe(video);
+  });
+  document.addEventListener('visibilitychange', () => previewVideos.forEach(syncPreview));
+  reducedMotion.addEventListener('change', () => previewVideos.forEach(syncPreview));
+}
+
 const clock = document.querySelector('#local-clock');
 const year = document.querySelector('#year');
 const themeButton = document.querySelector('#theme-toggle');
