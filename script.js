@@ -168,3 +168,13 @@ if (radioAudio) {
   radioAudio.addEventListener('ended', () => selectRadioTrack(currentTrack + 1, true));
   selectRadioTrack(0);
 }
+
+// Keep the local game sample and portfolio radio from talking over each other.
+const localAudioPlayers = document.querySelectorAll('audio');
+localAudioPlayers.forEach((player) => {
+  player.addEventListener('play', () => {
+    localAudioPlayers.forEach((other) => {
+      if (other !== player) other.pause();
+    });
+  });
+});
