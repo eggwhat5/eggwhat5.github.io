@@ -166,6 +166,5 @@ if (radioAudio) {
   radioAudio.addEventListener('error', showPlaybackError);
   radioAudio.addEventListener('pause', syncRadioButton);
   radioAudio.addEventListener('ended', () => selectRadioTrack(currentTrack + 1, true));
-  showTrack();
-  syncRadioButton();
+  selectRadioTrack(0);
 }
