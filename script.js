@@ -113,7 +113,13 @@ if (radioAudio) {
      { src: 'media/radio/bduussu_10.mp3', title: 'Spur' },
      { src: 'media/radio/diggy%20jugger_17.mp3', title: 'Under' },
      { src: 'media/radio/mandrill.mp3', title: 'Mandrill' },
-     { src: 'media/radio/sandclouds.mp3', title: 'Sandclouds' }
+     { src: 'media/radio/sandclouds.mp3', title: 'Sandclouds' },
+     { src: 'media/radio/cairnhold.mp3', title: 'Cairnhold' },
+     { src: 'media/radio/conisia%20dungeon.mp3', title: 'Conisia Dungeon' },
+     { src: 'media/radio/forest%20town.mp3', title: 'Forest Town' },
+     { src: 'media/radio/magma.mp3', title: 'Magma' },
+     { src: 'media/radio/swamp%20dungeon.mp3', title: 'Swamp Dungeon' },
+     { src: 'media/radio/tundra%20dungeon.mp3', title: 'Tundra Dungeon' }
   ];
   const toggleButton = document.querySelector('#radio-toggle');
   const radioStatus = document.querySelector('.radio-label');
