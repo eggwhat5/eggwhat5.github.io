@@ -2,15 +2,30 @@
 <html lang="en">
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="no-referrer"><meta name="robots" content="noindex,nofollow">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#10151e"><title>WedgeScope · Personal scanner</title>
 <link rel="icon" href="./mark.svg"><link rel="stylesheet" href="./screen.css">
 <main>
   <header><img src="./mark.svg" width="37" height="37" alt=""><span>WedgeScope</span></header>
   <section id="gate" aria-labelledby="title">
-    <h1 id="title">Open your scanner</h1>
-    <p>Use your invite key and your own Robinhood account to scan in your browser.</p>
-    <a class="action" href="https://matthewcomputer.tail2722f0.ts.net/" referrerpolicy="no-referrer">Open browser scanner</a>
+    <h1 id="title">Unlock your scanner</h1>
+    <p>Download the scanner for Windows x64 or macOS (Apple silicon and Intel). Your invite key unlocks the ZIP here. Robinhood sign-in takes place on your computer.</p>
+    <form id="entry"><label for="key">Invite key</label>
+      <input id="key" type="password" autocomplete="off" spellcheck="false" autocapitalize="none" placeholder="WS1.…" required>
+      <button id="unlock" type="submit">Unlock desktop download</button>
+      <p id="error" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+  <section id="download" hidden aria-labelledby="ready">
+    <h1 id="ready" tabindex="-1">Your scanner is ready</h1>
+    <p>Download the full scanner and connect your own Robinhood account on your computer.</p>
+    <a class="action" id="file" download="WedgeScope.zip">Download WedgeScope ZIP</a>
+    <ol><li>Install standard 64-bit <a href="https://www.python.org/downloads/" rel="noreferrer">Python 3.13</a> and extract the whole ZIP.</li>
+    <li>Open <strong>Start WedgeScope.cmd</strong> on Windows or <strong>Start WedgeScope.command</strong> on Mac. Enter your invite key when prompted.</li>
+    <li>Open <strong>Robinhood</strong> in the local dashboard, connect your account, then choose <strong>Robinhood → Save and scan</strong> in Scan settings.</li></ol>
+    <p>The running scanner checks for updates and saves new ZIPs to your Downloads folder.</p>
+    <button id="lock" class="secondary">Lock page</button>
   </section>
 </main>
+<script src="./unlock.js" defer></script><script src="./page.js" defer></script>
 </html>
