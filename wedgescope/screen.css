@@ -12,3 +12,4 @@ form button{margin-top:17px;width:100%}button:disabled{opacity:.65;cursor:wait}
 :focus-visible{outline:3px solid #ab9cf5;outline-offset:3px}
 #error:not(:empty){color:#ffb4bb;margin:14px 0 0;font-size:14px}#error:empty{display:none}
 ol{padding-left:21px;margin:22px 0}li{margin:10px 0}code{overflow-wrap:anywhere}.secondary{background:transparent;border:1px solid #49596d;color:#d6dfea}
+details{margin-top:24px;border-top:1px solid #354050;padding-top:18px}summary{cursor:pointer;color:#b7c3d3;font-size:15px}details[open] summary{margin-bottom:16px}
