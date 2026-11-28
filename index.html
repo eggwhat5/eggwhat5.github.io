@@ -7,7 +7,7 @@
   <meta name="description" content="Matthew J. Peffer — Roblox game developer and composer. A portfolio of game work, scores, and audio tools.">
   <title>Matthew J. Peffer // Game Dev & Audio</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=remnants-1">
+  <link rel="stylesheet" href="style.css?v=synth-enclosure-1">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to the good stuff</a>
@@ -62,7 +62,17 @@
         <div class="section-heading"><span class="section-index">02 / RADIO</span></div>
         <div class="radio-panel" aria-label="Portfolio radio player"><div class="radio-current"><p class="radio-label">RADIO</p></div><div class="radio-controls"><button id="radio-prev" type="button" aria-label="Previous track">◀</button><button id="radio-toggle" type="button" aria-label="Play" aria-pressed="false">▶</button><button id="radio-next" type="button" aria-label="Next track">▶</button></div><audio id="radio-audio" preload="none" src="media/radio/biggis%20Sturg_6.mp3">Your browser does not support audio playback.</audio></div>
         <div class="project-grid">
-          <article class="project-card featured-pedal"><video class="project-video" src="media/multi-fx-pedal.mp4" poster="media/multi-fx-pedal-poster.png" aria-label="Video of the multi-FX pedal and synthesizer" controls data-preview muted loop playsinline preload="none"></video><div class="project-copy"><span class="project-icon">[fx]</span><p class="project-type">EMBEDDED AUDIO / C++</p><h3>Multi-FX pedal &amp; sampler</h3><p>A real-time audio device for effects like reverb, granulation, half-time, and reverse. Includes a chain-based effect flow and custom stereo bit manipulation.</p><div class="tech-row">C++ · DaisySP · STM / ARM</div></div></article>
+          <article class="project-card featured-pedal">
+            <video class="project-video" src="media/multi-fx-pedal.mp4" poster="media/multi-fx-pedal-poster.png" aria-label="Video of the multi-FX pedal and synthesizer" controls data-preview muted loop playsinline preload="none"></video>
+            <div class="project-copy"><span class="project-icon">[fx]</span><p class="project-type">EMBEDDED AUDIO / C++</p><h3>Multi-FX pedal &amp; sampler</h3><p>A real-time audio device for effects like reverb, granulation, half-time, and reverse. Includes a chain-based effect flow and custom stereo bit manipulation.</p><div class="tech-row">C++ · DaisySP · STM / ARM</div></div>
+            <figure class="enclosure-update">
+              <img src="media/synth-enclosure.webp" width="1280" height="960" loading="lazy" decoding="async" alt="The synth’s circuit boards and control knobs mounted in a two-tier black enclosure on a keyboard.">
+              <figcaption>
+                <h4>Enclosure update</h4>
+                <p>Modeled an enclosure via blender to provide stability for the microcontroller(s) (as well as for obvious QoL purposes).</p>
+              </figcaption>
+            </figure>
+          </article>
           <article class="project-card"><span class="project-icon">♫</span><div><p class="project-type">BROWSER TOOL / WEB MIDI</p><h3>InKey piano practice</h3><p>A browser-based MIDI practice app with falling-note visualization, step sequencing, chord analysis, pitch detection, and practice analytics.</p><div class="tech-row">JavaScript · Web MIDI · Audio</div></div></article>
           <article class="project-card"><span class="project-icon">EQ</span><div><p class="project-type">AUDIO PLUGIN / C++</p><h3>Parametric equalizer</h3><p>A low-latency multi-band EQ built with a flexible filter chain for shaping frequency, Q, and gain in real time.</p><div class="tech-row">C++ · JUCE · DSP</div></div></article>
         </div>
